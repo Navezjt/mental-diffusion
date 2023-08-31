@@ -1,0 +1,115 @@
+{
+	"name": "mental-diffusion",
+	"displayName": "Mental Diffusion",
+	"description": "ComfyUI Interface for VS Code",
+	"icon": "media/appicon.png",
+	"version": "0.2.9",
+	"publisher": "nimadez",
+	"author": "@nimadez",
+	"license": "MIT",
+	"galleryBanner": {
+		"color": "#1B1F23",
+		"theme": "dark"
+	},
+	"homepage": "https://nimadez.github.io/mental-diffusion",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nimadez/mental-diffusion"
+	},
+	"bugs": {
+		"url": "https://github.com/nimadez/mental-diffusion/issues"
+	},
+	"engines": {
+		"vscode": "^1.65.0"
+	},
+	"categories": [
+		"Machine Learning",
+		"Other"
+	],
+	"keywords": [
+		"stable-diffusion",
+		"comfyui",
+		"webui"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "md.start",
+				"title": "MD"
+			},
+			{
+				"command": "md.comfy",
+				"title": "MD Comfy"
+			},
+			{
+				"command": "md.webui",
+				"title": "MD UI"
+			}
+		],
+		"menus": {
+			"editor/title/run": [
+				{
+					"command": "md.start",
+					"group": "mdmenu",
+					"when": "config.mental-diffusion.xVscodeIntegration"
+				},
+				{
+					"command": "md.comfy",
+					"group": "mdmenu",
+					"when": "config.mental-diffusion.xVscodeIntegration"
+				},
+				{
+					"command": "md.webui",
+					"group": "mdmenu",
+					"when": "config.mental-diffusion.xVscodeIntegration"
+				}
+			]
+		},
+		"configuration": {
+			"title": "Mental Diffusion",
+			"properties": {
+				"mental-diffusion.comfyArguments": {
+					"type": "string",
+					"default": "",
+					"description": "--cpu --gpu-only --novram --lowvram --normalvram --highvram --force-fp16 --force-fp32 --listen --disable-metadata --windows-standalone-build"
+				},
+				"mental-diffusion.comfyPath": {
+					"type": "string",
+					"default": "D:/Apps/ComfyUI/ComfyUI",
+					"description": "ComfyUI Source Path"
+				},
+				"mental-diffusion.comfyPython": {
+					"type": "string",
+					"default": "D:/Apps/ComfyUI/python_embeded/python.exe",
+					"description": "ComfyUI Python Executable Path"
+				},
+				"mental-diffusion.output": {
+					"type": "string",
+					"default": ".output",
+					"description": "Enter absolute path to image output directory"
+				},
+				"mental-diffusion.workflows": {
+					"type": "string",
+					"default": ".workflows",
+					"description": "Enter absolute path to custom workflows directory"
+				},
+				"mental-diffusion.xVscodeIntegration": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable editor/title/run menu"
+				}
+			}
+		}
+	},
+	"scripts": {},
+	"devDependencies": {
+		"meta-png": "^1.0.6"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
