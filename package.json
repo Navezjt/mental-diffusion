@@ -3,7 +3,7 @@
 	"displayName": "Mental Diffusion",
 	"description": "ComfyUI Interface for VS Code",
 	"icon": "media/appicon.png",
-	"version": "0.2.9",
+	"version": "0.5.1",
 	"publisher": "nimadez",
 	"author": "@nimadez",
 	"license": "MIT",
@@ -23,8 +23,7 @@
 		"vscode": "^1.65.0"
 	},
 	"categories": [
-		"Machine Learning",
-		"Other"
+		"Machine Learning"
 	],
 	"keywords": [
 		"stable-diffusion",
@@ -32,22 +31,27 @@
 		"webui"
 	],
 	"activationEvents": [
-		"onStartupFinished"
+		"onCommand:md.start",
+		"onCommand:md.comfy",
+		"onCommand:md.webui"
 	],
 	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "md.start",
-				"title": "MD"
+				"title": "MD",
+				"category": "Mental Diffusion"
 			},
 			{
 				"command": "md.comfy",
-				"title": "MD Comfy"
+				"title": "MDC",
+				"category": "Mental Diffusion"
 			},
 			{
 				"command": "md.webui",
-				"title": "MD UI"
+				"title": "MDU",
+				"category": "Mental Diffusion"
 			}
 		],
 		"menus": {
@@ -55,52 +59,79 @@
 				{
 					"command": "md.start",
 					"group": "mdmenu",
-					"when": "config.mental-diffusion.xVscodeIntegration"
+					"when": "config.mental-diffusion.menuMD"
 				},
 				{
 					"command": "md.comfy",
 					"group": "mdmenu",
-					"when": "config.mental-diffusion.xVscodeIntegration"
+					"when": "config.mental-diffusion.menuMDC"
 				},
 				{
 					"command": "md.webui",
 					"group": "mdmenu",
-					"when": "config.mental-diffusion.xVscodeIntegration"
+					"when": "config.mental-diffusion.menuMDU"
 				}
 			]
 		},
 		"configuration": {
+			"type": "object",
 			"title": "Mental Diffusion",
 			"properties": {
-				"mental-diffusion.comfyArguments": {
-					"type": "string",
-					"default": "",
-					"description": "--cpu --gpu-only --novram --lowvram --normalvram --highvram --force-fp16 --force-fp32 --listen --disable-metadata --windows-standalone-build"
-				},
 				"mental-diffusion.comfyPath": {
+					"order": 1,
 					"type": "string",
 					"default": "D:/Apps/ComfyUI/ComfyUI",
 					"description": "ComfyUI Source Path"
 				},
 				"mental-diffusion.comfyPython": {
+					"order": 2,
 					"type": "string",
 					"default": "D:/Apps/ComfyUI/python_embeded/python.exe",
 					"description": "ComfyUI Python Executable Path"
 				},
+				"mental-diffusion.comfyArguments": {
+					"order": 3,
+					"type": "string",
+					"default": "",
+					"description": "--cpu --gpu-only --novram --lowvram --normalvram --highvram --force-fp16 --force-fp32 --listen --disable-metadata --windows-standalone-build"
+				},
 				"mental-diffusion.output": {
+					"order": 4,
 					"type": "string",
 					"default": ".output",
 					"description": "Enter absolute path to image output directory"
 				},
 				"mental-diffusion.workflows": {
+					"order": 5,
 					"type": "string",
 					"default": ".workflows",
 					"description": "Enter absolute path to custom workflows directory"
 				},
-				"mental-diffusion.xVscodeIntegration": {
+				"mental-diffusion.styles": {
+					"order": 6,
+					"type": "string",
+					"default": "configs/styles.json",
+					"description": "Enter absolute path to styles.json file"
+				},
+				"mental-diffusion.menuMD": {
+					"order": 20,
 					"type": "boolean",
 					"default": true,
-					"description": "Enable editor/title/run menu"
+					"description": "Enable editor/run 'MD' button"
+				},
+				"mental-diffusion.menuMDC": {
+					"order": 21,
+					"type": "boolean",
+					"scope": "resource",
+					"default": true,
+					"description": "Enable editor/run 'MDC' button"
+				},
+				"mental-diffusion.menuMDU": {
+					"order": 22,
+					"type": "boolean",
+					"scope": "resource",
+					"default": true,
+					"description": "Enable editor/run 'MDU' button"
 				}
 			}
 		}

@@ -1,12 +1,12 @@
 {
   "3": {
     "inputs": {
-      "seed": "_seed_",
-      "steps": "_steps_",
-      "cfg": "_cfg_",
-      "sampler_name": "_sampler_name_",
-      "scheduler": "_scheduler_",
-      "denoise": "_denoise_",
+      "seed": 156680208700286,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
       "model": [
         "4",
         0
@@ -28,13 +28,13 @@
   },
   "4": {
     "inputs": {
-      "ckpt_name": "_ckpt_name_"
+      "ckpt_name": "checkpoints\\reliberate.safetensors"
     },
     "class_type": "CheckpointLoaderSimple"
   },
   "6": {
     "inputs": {
-      "text": "_positive_",
+      "text": "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,",
       "clip": [
         "4",
         1
@@ -44,7 +44,7 @@
   },
   "7": {
     "inputs": {
-      "text": "_negative_",
+      "text": "text, watermark",
       "clip": [
         "4",
         1
@@ -90,17 +90,23 @@
   },
   "11": {
     "inputs": {
-      "image": "_image_init_",
+      "image": "example.png",
       "choose file to upload": "image"
     },
-    "class_type": "LoadImage"
+    "class_type": "LoadImage",
+    "is_changed": [
+        "ee35cd98b246243842ba8360511b7c4"
+    ]
   },
   "12": {
     "inputs": {
-      "image": "_image_mask_",
+      "image": "example.png",
       "choose file to upload": "image"
     },
-    "class_type": "LoadImage"
+    "class_type": "LoadImage",
+    "is_changed": [
+        "ee35cd98b246243842ba8360511b7c4"
+    ]
   },
   "13": {
     "inputs": {

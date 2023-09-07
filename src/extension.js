@@ -7,36 +7,41 @@ let pathComfy = null;
 let pathPython = null;
 let pathOutput = null;
 let pathWorkflows = null;
+let pathStyles = null;
 let panel = undefined;
 let term = undefined;
 
 const WORKFLOWS = [
 	"default_txt2img_api.json",
-	"default_txt2img_vae_api.json",
 	"default_img2img_api.json",
 	"default_inpaint_api.json",
 	"default_inpaint_pro_api.json"
 ]
 
-function setPaths(ctx) {
+function setPaths(extPath) {
 	pathComfy = vscode.workspace.getConfiguration('mental-diffusion').comfyPath;
 	pathPython = vscode.workspace.getConfiguration('mental-diffusion').comfyPython;
 	pathOutput = vscode.workspace.getConfiguration('mental-diffusion').output;
 	pathWorkflows = vscode.workspace.getConfiguration('mental-diffusion').workflows;
+	pathStyles = vscode.workspace.getConfiguration('mental-diffusion').styles;
 
 	if (pathOutput == '.output')
-		pathOutput = ctx.extensionPath + '/.output';
+		pathOutput = extPath + '/.output';
 	if (pathWorkflows == '.workflows')
-		pathWorkflows = ctx.extensionPath + '/.workflows';
+		pathWorkflows = extPath + '/.workflows';
+	if (pathStyles == 'configs/styles.json')
+		pathStyles = extPath + '/configs/styles.json';
 
 	if (!fs.existsSync(pathComfy + "/main.py"))
-		vscode.window.showErrorMessage("Mental Diffusion: Set ComfyUI Source Path in settings.");
+		vscode.window.showErrorMessage("Mental Diffusion: Set ComfyUI Source path in settings.");
 	if (!fs.existsSync(pathPython))
-		vscode.window.showErrorMessage("Mental Diffusion: Set ComfyUI Python Path in settings.");
+		vscode.window.showErrorMessage("Mental Diffusion: Set ComfyUI Python path in settings.");
 	if (!fs.existsSync(pathOutput))
-		vscode.window.showErrorMessage("Mental Diffusion: Set Output Path in settings.");
+		vscode.window.showErrorMessage("Mental Diffusion: Set Output path in settings.");
 	if (!fs.existsSync(pathWorkflows))
-		vscode.window.showErrorMessage("Mental Diffusion: Set Workflows Path in settings.");
+		vscode.window.showErrorMessage("Mental Diffusion: Set Workflows path in settings.");
+	if (!fs.existsSync(pathStyles))
+		vscode.window.showErrorMessage("Mental Diffusion: Set Styles path in settings.");
 }
 
 function activate(ctx) {
@@ -49,21 +54,21 @@ function activate(ctx) {
 	if (!fs.existsSync(pathMD + '/.workflows'))
 		fs.mkdirSync(pathMD + '/.workflows');
 
-	setPaths(ctx);
+	setPaths(pathMD);
 
 	ctx.subscriptions.push(vscode.commands.registerCommand('md.start', () => {
-		setPaths(ctx);
+		setPaths(pathMD);
 		openTerminal();
 		openWebInterface();
 	}));
 
 	ctx.subscriptions.push(vscode.commands.registerCommand('md.comfy', () => {
-		setPaths(ctx);
+		setPaths(pathMD);
 		openTerminal();
 	}));
 
 	ctx.subscriptions.push(vscode.commands.registerCommand('md.webui', () => {
-		setPaths(ctx);
+		setPaths(pathMD);
 		openWebInterface();
 	}));
 }
@@ -86,24 +91,31 @@ function openWebInterface() {
 		}
 	);
 	panel.webview.html = fs.readFileSync(pathMD + '/src/index.html').toString();
+	panel.webview.html = panel.webview.html.replace('{SPLASH}', fs.readFileSync(pathMD + '/media/splash.png', { encoding: 'base64' }).toString());
 	panel.webview.onDidReceiveMessage(msg => {
 		switch (msg.type) {
-			case "startup":
+			case "initialize":
 				panel.webview.postMessage({
 					path_md: pathMD,
+					path_comfy: pathComfy,
 					workflows: getWorkflows().concat(getCustomWorkflows(pathWorkflows)),
 					workflow_upscale: fs.readFileSync(`${ pathMD }/configs/upscale_api.json`).toString(),
-					styles: fs.readFileSync(`${ pathMD }/configs/styles.json`).toString()
+					workflow_merge: fs.readFileSync(`${ pathMD }/configs/merge_api.json`).toString(),
+					styles: fs.readFileSync(pathStyles).toString()
 				});
 				break;
 
 			case "input": // save image to .input
 				const input = path.join(pathMD + '/.input', msg.filename);
-				fs.writeFileSync(input, decodeBase64Image(msg.base64).data);
+				fs.writeFileSync(input, decodeBase64Image(msg.base64));
 				break;
 
 			case "output": // save image to .output or custom path
-				saveImage(path.join(pathOutput, msg.filename), msg.base64, msg.openfile);
+				saveImage(path.join(pathOutput, msg.filename), msg.base64);
+				break;
+
+			case "saveas": // save image as...
+				saveImageAs(path.join(pathOutput, msg.filename), msg.base64);
 				break;
 
 			case "open_output":
@@ -112,6 +124,10 @@ function openWebInterface() {
 
 			case "open_workflows":
 				vscode.env.openExternal(pathWorkflows);
+				break;
+
+			case "open_styles":
+				vscode.commands.executeCommand('vscode.open', vscode.Uri.file(pathStyles));
 				break;
 
 			case "url":
@@ -144,18 +160,26 @@ function getCustomWorkflows(dir) {
 	return arr;
 }
 
-function saveImage(fpath, base64, isOpen) {
+function saveImage(fpath, base64) {
 	if (fs.existsSync(path.dirname(fpath))) {
 		fpath = incrementFilename(fpath);
-		fs.writeFileSync(fpath, decodeBase64Image(base64).data);
-		if (isOpen)
-			vscode.commands.executeCommand('vscode.open', vscode.Uri.file(fpath));
+		fs.writeFileSync(fpath, decodeBase64Image(base64));
 	} else {
 		vscode.window.showErrorMessage("The output directory does not exists");
 	}
 }
 
-function incrementFilename(filepath) {
+function saveImageAs(fpath, base64) {
+	fpath = incrementFilename(fpath);
+	vscode.window.showSaveDialog({
+		defaultUri: vscode.Uri.file(fpath),
+		filters: { 'Images': ['png'] }
+	}).then(uri => {
+		if (uri) fs.writeFileSync(uri.fsPath, decodeBase64Image(base64));
+	});
+}
+
+function incrementFilename(filepath) { // TODO: rare cases like *._#.ext and *._##.ext
 	const ext = path.extname(filepath);
 	const name = path.basename(filepath, ext);
 	const ending = name.split('_').pop();
@@ -173,11 +197,7 @@ function incrementFilename(filepath) {
 }
 
 function decodeBase64Image(b64) {
-	const matches = b64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-	const response = {};
-	response.type = matches[1];
-	response.data = Buffer.from(matches[2], 'base64');
-	return response;
+	return Buffer.from(b64.split(',')[1], 'base64');
 }
 
 function deactivate() {

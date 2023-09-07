@@ -1,6 +1,6 @@
 {
     "0": {
-        "title": "Base",
+        "title": "Styles",
         "data": [ "3D render", "drawing", "painting", "illustration", "vector art", "photographic", "photorealistic", "hyper realistic", "hyperrealism", "concept art", "realistic", "video game", "origami", "analog photography", "pixel art", "line art", "digital artwork", "digital painting", "street painting", "fashion", "still life", "manga", "comic", "portrait", "anime", "portrait photography", "sculpture", "poster", "blueprint", "optical illusion", "architectural", "woodcraft", "handicraft", "fine art", "doodle", "photojournalism", "abstract art", "figure drawing", "caricature", "editorial photography", "photoshoot", "cinematic", "character design", "cartoon", "sketch", "pencil drawing", "animation", "comic book", "matte painting", "paper art", "clay art" ]
     },
     "1": {
@@ -8,23 +8,23 @@
         "data": [ "fantasy", "surreal", "sci-fi", "sorceress", "surrealist", "incredible", "nostalgia", "classic", "electric", "synthwave", "retro", "retrowave", "science fiction", "magical", "cyberpunk", "horror", "high tech", "modern", "apocalyptic", "dramatic", "scientific", "futuristic", "mental", "dreamy", "horrific", "robotic", "ancient", "mythical", "alien", "romantic", "musical", "documentary", "martial arts", "mystery", "adventure", "war", "history", "crime", "psychedelic", "action", "matrix", "zombie", "werewolf", "spiritual", "extraterrestrial", "masterpiece", "beautiful", "secret", "voxels", "ritual", "anonymous", "stealth", "amazing", "stunning", "breathtaking", "dystopian", "otherworldly", "award-winning", "magnificent", "celestial", "ethereal" ]
     },
     "2": {
-        "title": "Specials / Medium",
+        "title": "Specials",
         "data": [ "3D model", "3d sculpture", "artstation", "trending on artstation", "brush strokes", "ink", "neon", "acrylic", "pastel", "low poly", "oily", "wet", "neon punk", "electronics", "gadgets", "mechanical", "computers", "digital", "synesthesia", "full body", "pose", "painterly", "polygon mesh", "folded", "low-res", "8-bit graphics", "deviantart" ]
     },
     "3": {
-        "title": "Lighting / Color",
+        "title": "Lighting",
         "data": [ "dramatic lighting", "studio lighting", "cinematic lighting", "volumetric lighting", "dynamic lighting", "rim lighting", "natural lighting", "moody lighting", "soft lighting", "hard lighting", "rembrandt lighting", "split lighting", "beautiful lighting", "accent lighting", "golden hour", "blue and violet", "hell red", "darkness", "dark", "atmospheric", "colorful", "iridescent gold", "golden", "metallic", "tonal colors", "vibrant colors", "desaturated" ]
     },
     "4": {
-        "title": "View / Optics",
-        "data": [ "HD", "ultra HD", "4k", "top view", "side view", "front view", "centered", "ultra-wide angle", "close up", "close shot", "long shot", "serious looking", "look forward", "orthographic view", "perspective view", "panorama", "first person view", "third person view", "fisheye lens", "widescreen", "horizontal", "vertical", "microscopic view", "molecular view", "rectilinear lens", "illusion", "isometric" ]
+        "title": "Optics",
+        "data": [ "HD", "ultra HD", "4k", "8k", "top view", "side view", "front view", "centered", "ultra-wide angle", "close up", "close shot", "long shot", "serious looking", "look forward", "orthographic view", "perspective view", "panorama", "first person view", "third person view", "fisheye lens", "widescreen", "horizontal", "vertical", "microscopic view", "molecular view", "rectilinear lens", "illusion", "isometric" ]
     },
     "5": {
-        "title": "Environment / Nature",
+        "title": "Environment",
         "data": [ "interior", "exterior", "hallway", "space", "hyperspace", "outer space", "sun rays", "environment", "on the nature of daylight", "god rays", "blue ocean", "landscape", "mountains", "skyscrapers", "clouds", "rainy", "snowy", "fog", "storm", "volcano", "desert", "waterfall", "rainforest", "amazon rainforest", "sunrise", "sunset", "daylight", "night", "moonlit", "moon", "mars", "saturn", "stars", "nebula", "earth", "sun", "black hole", "clear sky", "lightning", "horizon", "river", "rainbow", "highway", "street" ]
     },
     "6": {
-        "title": "Photography / Effects",
+        "title": "Photography Effects",
         "data": [ "HDR", "depth of field", "DOF", "motion blur", "autofocus", "lucid", "slow motion", "film grain", "vintage", "vignette", "warm", "cold", "creamy", "liquid", "smooth", "high contrast", "sepia", "high details", "detailed", "highly detailed", "ultra detailed", "sharp focus", "pixelate", "grayscale", "vibrant", "35mm photograph", "film", "bokeh", "grainy" ]
     },
     "7": {
@@ -36,7 +36,7 @@
         "data": [ "VFX", "HDRI", "global illumination", "ray tracing", "subsurface scattering", "ambient occlusion", "volumetric smoke", "volumetric fire", "volumetric clouds", "volumetric water", "glowing", "chromatic aberration", "anti-aliasing", "FXAA", "RTX", "SSAO", "CGI", "TXAA", "fur", "cell shading", "textured", "spot light", "directional light", "omni light", "area light", "scan lines", "GLSL shader", "post processing", "PBR" ]
     },
     "9": {
-        "title": "Artists / Producers",
+        "title": "Artists",
         "data": [ "by Leonardo da Vinci", "by Vincent Van Gogh", "by Salvador Dali", "by Pablo Picasso", "by Pixar", "by Walt Disney", "by Michelangelo", "by Bob Ross", "by Rembrandt", "by Andy Warhol", "by Goya", "by Wassily Kandinsky", "by Claude Monet", "by Weta Digital", "by Steven Spielberg", "by Christopher Nolan", "by Martin Scorsese", "by Dreamworks", "by Industrial Light and Magic", "by Cartoon Network" ]
     },
     "10": {
@@ -44,7 +44,7 @@
         "data": [ "platformer", "side scrolling platformer", "first person shooter", "puzzle game", "role playing game", "simulator game", "fighting game", "strategy game", "racing game", "arcade game", "isometric game", "minecraft", "doom", "tetris", "pac-man", "super mario", "grand theft auto", "bioshock", "fortnite", "warcraft", "uncharted", "nintendo", "low-poly game" ]
     },
     "11": {
-        "title": "Args / Dynamic",
+        "title": "Dynamic",
         "data": [ "{foo|bar|baz}", "--ar 2:3", "--ar 4:3", "--ar 16:9", "--beta", "--upbeta" ]
     }
 }
