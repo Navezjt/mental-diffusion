@@ -3,7 +3,7 @@
 <img src="https://github.com/nimadez/mental-diffusion/blob/main/media/screenshot.jpg?raw=true">
 
 ComfyUI Interface for VS Code<br>
-Version 0.5.1 Alpha<br>
+Version 0.5.2 Alpha<br>
 [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=nimadez.mental-diffusion)<br>
 [Download Nightly](https://github.com/nimadez/mental-diffusion/releases)
 
